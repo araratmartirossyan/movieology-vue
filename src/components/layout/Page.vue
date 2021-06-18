@@ -12,7 +12,7 @@
       </div>
     </div>
 
-    <div ref="pageContent" class="tg-page__content">
+    <div class="tg-page__content">
       <slot />
     </div>
 
