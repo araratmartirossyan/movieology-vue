@@ -79,3 +79,11 @@ declare namespace MOVIEOLOGY {
     user: Profile
   }
 }
+
+type Nullable<T> = {
+  [P in keyof T]: T[P] | null
+}
+
+type ComponentSize = any
+
+type SFCWithInstall = any

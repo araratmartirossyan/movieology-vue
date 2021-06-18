@@ -7,9 +7,10 @@
     "postinstall": "node ./scripts/element-fix.js"
   },
   "dependencies": {
+    "@types/lodash": "^4.14.170",
     "@vueuse/core": "^4.11.2",
     "axios": "^0.21.1",
-    "element-plus": "^1.0.2-beta.36",
+    "element-plus": "1.0.2-beta.36",
     "pinia": "^2.0.0-beta.2",
     "ramda": "^0.27.1",
     "vue": "^3.0.5",
