@@ -10,7 +10,7 @@
         <span class="pre_link">Войти через: </span>
         <div class="home-page__bottom-icons">
           <div @click="loginWithGoogle" class="link"><google-svg /></div>
-          <div @click="loginWithGoogle" class="link"><facebook-svg /></div>
+          <div class="link disabled"><facebook-svg /></div>
         </div>
       </div>
     </template>
@@ -84,6 +84,10 @@ const loginWithGoogle = async () => {
         color: $color-white;
         text-decoration: none;
         background: $color-white;
+      }
+
+      .disabled {
+        background: gray;
       }
     }
   }
