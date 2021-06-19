@@ -21,8 +21,7 @@
 <script setup lang="ts">
 import { useUserStore } from '@/stores'
 import { ElAvatar } from 'element-plus'
-import GsIcon from '@/components/icons/GsIcon.vue'
-
+import GsIcon from '@/components/Icons/GsIcon.vue'
 const userStore = useUserStore()
 </script>
 
