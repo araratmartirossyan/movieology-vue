@@ -9,14 +9,14 @@ import Vue from '@vitejs/plugin-vue'
 
 const pwaConfig = {
   manifest: {
-    theme_color: '#132968',
-    background_color: '#132968',
+    theme_color: '#1e1b26',
+    background_color: '#1e1b26',
     display: 'standalone',
     scope: '/',
     start_url: '/',
-    name: 'Game Shelf 2',
-    short_name: 'GS',
-    description: 'Virtual Game shelf of your physical games ',
+    name: 'Movieology',
+    short_name: 'Movieology',
+    description: 'Что посмотреть? Мы знаем и вам расскажем',
     icons: [
       {
         src: 'images/manifest-icon-192.png',

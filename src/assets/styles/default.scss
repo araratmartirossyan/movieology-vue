@@ -4,11 +4,13 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
-body {
+body,
+html {
   padding: 0;
   margin: 0;
   width: 100%;
-  background-color: #132968;
+  background-color: #1e1b26;
+  font-family: 'Nunito';
 }
 
 * {
@@ -21,4 +23,12 @@ body {
 
 .paragraph {
   font-size: 14px;
+}
+
+.app {
+  font-family: 'Nunito';
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
 }
