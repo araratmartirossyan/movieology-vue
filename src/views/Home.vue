@@ -1,5 +1,6 @@
 <template>
   <Page class="home-page">
+    <template #append v-if="authStore.loggedIn"> </template>
     <div class="home-page__content">
       <what-to-watch-button />
     </div>
@@ -13,6 +14,13 @@
         </div>
       </div>
     </template>
+    <template #bottom>
+      <div class="home-page__bottom">
+        <div class="home-page__bottom-icons">
+          <i class="el-icon-user user-icon" @click="$router.push('/profile')" />
+        </div>
+      </div>
+    </template>
   </Page>
 </template>
 
@@ -20,6 +28,7 @@
 // Components
 import GoogleSvg from '@/assets/icons/google.svg'
 import FacebookSvg from '@/assets/icons/facebook.svg'
+
 import { useAuthStore } from '@/stores'
 
 const authStore = useAuthStore()
@@ -33,6 +42,14 @@ const loginWithGoogle = async () => {
 @import '@/assets/styles';
 
 .home-page {
+  .user-icon {
+    font-size: 26px;
+    border-radius: 4px;
+    padding: 4px;
+    color: white;
+    font-weight: bold;
+    background: $color-primary;
+  }
   &__content {
     display: flex;
     justify-content: center;

@@ -1,4 +1,4 @@
-import { createWebHistory, createRouter } from 'vue-router'
+import { createWebHistory, createRouter, NavigationGuard } from 'vue-router'
 import { setToken } from './services/rest.service'
 import { useAuthStore, useUserStore } from './stores'
 
@@ -9,6 +9,16 @@ const Movie = () => import('./views/Movie.vue')
 
 const history = createWebHistory()
 
+const profileGuard: NavigationGuard = (to, from, next) => {
+  const token = localStorage.getItem('token')
+  if (!token) {
+    next('/')
+    return
+  }
+
+  next()
+}
+
 const routes = [
   {
     path: '/',
@@ -18,7 +28,8 @@ const routes = [
   {
     path: '/profile',
     name: 'profile',
-    component: Profile
+    component: Profile,
+    beforeEnter: profileGuard
   },
   {
     path: '/movie/:id',

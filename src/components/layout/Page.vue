@@ -45,23 +45,25 @@ defineComponent({
   right: 0;
   top: 0;
 
-  // &__top {
-  //   color: #fff;
-  //   background-color: #132968;
-  //   height: 52px;
-  //   display: flex;
-  //   padding: 0 $spacing-m;
-  //   justify-content: space-between;
-  //   align-items: center;
-  //   font-weight: bold;
-  // }
+  &__top {
+    color: #fff;
+    height: 52px;
+    background: none;
+    display: flex;
+    position: fixed !important;
+    width: 100%;
+    padding: 0 $spacing-m;
+    justify-content: space-between;
+    align-items: center;
+    font-weight: bold;
+  }
 
   &__top,
   &__bottom {
     flex-grow: 0;
     flex-shrink: 0;
     position: relative;
-    z-index: 104;
+    z-index: 9999;
   }
   &__content {
     flex-grow: 1;

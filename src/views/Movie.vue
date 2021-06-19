@@ -1,75 +1,82 @@
 <template>
-  <div className="wrap">
-    <div className="cellphone-container" v-if="movieStore.currentMovie">
-      <div className="movie">
-        <div
-          className="movie-img"
-          :style="{
-            backgroundImage: `url(${movieStore.currentMovie.Poster})`,
-            backgroundSize: 'cover'
-          }"
-        />
-        <div className="text-movie-cont">
-          <div className="mr-grid">
-            <div className="col1">
-              <h2 className="title">{{ movieStore.currentMovie.Title }}</h2>
-              <ul className="movie-gen">
-                <li>{{ movieStore.currentMovie.Rated }} /</li>
-                <li>{{ movieStore.currentMovie.Runtime }} /</li>
-                <li>{{ movieStore.currentMovie.Genre }}</li>
-              </ul>
-            </div>
-          </div>
-          <div className="mr-grid summary-row">
-            <div className="col2">
-              <h3>Описание:</h3>
-            </div>
-            <div className="col2">
-              <div className="movie-likes">
-                <!-- <Icon28FavoriteOutline width="{20}" height="{20}" /> -->
-                <span>{{ movieStore.currentMovie.imdbRating }}</span>
+  <page>
+    <template #append v-if="authStore.loggedIn">
+      <i class="el-icon-user user-icon" @click="push('/profile')" />
+    </template>
+    <div className="wrap">
+      <div className="cellphone-container" v-if="movieStore.currentMovie">
+        <div className="movie">
+          <div
+            className="movie-img"
+            :style="{
+              backgroundImage: `url(${movieStore.currentMovie.Poster})`,
+              backgroundSize: 'cover'
+            }"
+          />
+          <div className="text-movie-cont">
+            <div className="mr-grid">
+              <div className="col1">
+                <h2 className="title">{{ movieStore.currentMovie.Title }}</h2>
+                <ul className="movie-gen">
+                  <li>{{ movieStore.currentMovie.Rated }} /</li>
+                  <li>{{ movieStore.currentMovie.Runtime }} /</li>
+                  <li>{{ movieStore.currentMovie.Genre }}</li>
+                </ul>
               </div>
             </div>
-          </div>
-          <div className="mr-grid">
-            <div className="col1">
-              <p className="movie-description">
-                {{ movieStore.currentMovie.Plot }}
-              </p>
+            <div className="mr-grid summary-row">
+              <div className="col2">
+                <h3>Описание:</h3>
+              </div>
+              <div className="col2">
+                <div className="movie-likes">
+                  <!-- <Icon28FavoriteOutline width="{20}" height="{20}" /> -->
+                  <span>{{ movieStore.currentMovie.imdbRating }}</span>
+                </div>
+              </div>
             </div>
-          </div>
-          <div className="mr-grid actors-row">
-            <div className="col1">
-              <p className="movie-actors">
-                {{ movieStore.currentMovie?.Actors?.split('...')[0] }}
-              </p>
+            <div className="mr-grid">
+              <div className="col1">
+                <p className="movie-description">
+                  {{ movieStore.currentMovie.Plot }}
+                </p>
+              </div>
             </div>
-          </div>
+            <div className="mr-grid actors-row">
+              <div className="col1">
+                <p className="movie-actors">
+                  {{ movieStore.currentMovie?.Actors?.split('...')[0] }}
+                </p>
+              </div>
+            </div>
 
-          <div class="actions-block" v-if="authStore.loggedIn">
-            <i
-              class="el-icon-star-off"
-              @click="movieStore.addToFavorite(movieStore.currentMovie.id)"
-              v-if="!movieStore.isFav"
-            />
-            <i
-              class="el-icon-star-on"
-              @click="movieStore.removeFromFavorite(movieStore.currentMovie.id)"
-              v-else-if="movieStore.isFav"
-            />
-            <i class="el-icon-share" />
-          </div>
+            <div class="actions-block" v-if="authStore.loggedIn">
+              <i
+                class="el-icon-star-off"
+                @click="movieStore.addToFavorite(movieStore.currentMovie.id)"
+                v-if="!movieStore.isFav"
+              />
+              <i
+                class="el-icon-star-on"
+                @click="
+                  movieStore.removeFromFavorite(movieStore.currentMovie.id)
+                "
+                v-else-if="movieStore.isFav"
+              />
+              <i class="el-icon-share" />
+            </div>
 
-          <div className="back-btn">
-            <el-button @click="back">Назад</el-button>
-            <el-button @click="fetchAgain" icon="el-icon-video-play">
-              Посоветовать еще
-            </el-button>
+            <div className="back-btn">
+              <el-button @click="back">Назад</el-button>
+              <el-button @click="fetchAgain" icon="el-icon-video-play">
+                Посоветовать еще
+              </el-button>
+            </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
+  </page>
 </template>
 
 <script setup lang="ts">
@@ -89,7 +96,7 @@ import { usePreloader } from '@/hooks/usePreloader.hook'
 const movieStore = useMovieStore()
 const authStore = useAuthStore()
 
-const { back } = useRouter()
+const { back, push } = useRouter()
 const {
   params: { id }
 } = useRoute()
@@ -105,7 +112,17 @@ const fetchAgain = async () => {
 }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
+@import '@/assets/styles';
+.user-icon {
+  font-size: 26px;
+  border: 1px solid;
+  border-radius: 4px;
+  padding: 4px;
+  color: red;
+  font-weight: bold;
+}
+
 @import url(https://fonts.googleapis.com/css?family=Montserrat:400,700);
 @import url(https://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700,800,300italic,400italic,600italic,700italic,800italic);
 
