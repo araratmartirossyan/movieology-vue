@@ -230,6 +230,7 @@ $success: #3fdc75;
     li {
       --rotateX: 0deg;
       backface-visibility: hidden;
+      -webkit-backface-visibility: hidden;
       position: absolute;
       top: 0;
       bottom: 0;
