@@ -56,6 +56,7 @@ defineComponent({
     justify-content: space-between;
     align-items: center;
     font-weight: bold;
+    margin-top: 60px;
   }
 
   &__top,
