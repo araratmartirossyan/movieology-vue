@@ -15,14 +15,27 @@
         </h2>
       </div>
     </div>
+    <div class="profile-page__listing">
+      <img
+        v-for="movie in userStore.favorites"
+        :key="movie.favId"
+        :src="movie.Poster"
+        @click="$router.push({ name: 'movie', params: { id: movie.id } })"
+      />
+    </div>
   </page>
 </template>
 
 <script setup lang="ts">
+// Stores
 import { useUserStore } from '@/stores'
+
+// Components
 import { ElAvatar } from 'element-plus'
 import GsIcon from '@/components/Icons/GsIcon.vue'
+
 const userStore = useUserStore()
+userStore.fetchFavs()
 </script>
 
 <style lang="scss">
@@ -37,6 +50,19 @@ const userStore = useUserStore()
 
     &_block {
       color: $color-white;
+    }
+  }
+
+  &__listing {
+    column-count: 3;
+    column-gap: 1em;
+    padding: 0 10px;
+
+    img {
+      background-color: #eee;
+      display: inline-block;
+      margin: 0 0 0.5em;
+      width: 100%;
     }
   }
 }

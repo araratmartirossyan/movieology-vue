@@ -89,11 +89,11 @@ export const checkIsFav = async (movie: string) => {
   }
 }
 
-export const fetchFavs = async (userId: string) => {
+export const fetchFavs = async () => {
   try {
-    const favs = await request({
+    const favs = await request<MOVIEOLOGY.FavoriteMovie[]>({
       method: 'get',
-      url: `favorites?profile=${userId}`
+      url: 'favorites'
     })
     return favs
   } catch (error) {

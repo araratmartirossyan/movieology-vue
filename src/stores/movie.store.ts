@@ -15,7 +15,7 @@ type MovieStore = {
 }
 
 export const useMovieStore = defineStore({
-  id: 'movieStore',
+  id: 'movies',
   state: () =>
     <MovieStore>{
       currentMovie: {},

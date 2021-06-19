@@ -1,5 +1,5 @@
 <template>
-  <Page class="home-page">
+  <page class="home-page">
     <template #append v-if="authStore.loggedIn"> </template>
     <div class="home-page__content">
       <what-to-watch-button />
@@ -21,7 +21,7 @@
         </div>
       </div>
     </template>
-  </Page>
+  </page>
 </template>
 
 <script lang="ts" setup>
@@ -47,7 +47,6 @@ const loginWithGoogle = async () => {
     border-radius: 4px;
     padding: 4px;
     color: white;
-    font-weight: bold;
     background: $color-primary;
   }
   &__content {

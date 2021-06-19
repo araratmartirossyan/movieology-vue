@@ -17,6 +17,4 @@ registerSW({
 
 const app = createApp(App)
 
-// installComponents(app)
-
 app.use(createPinia()).use(router).mount('#app')

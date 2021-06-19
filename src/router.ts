@@ -43,7 +43,10 @@ const routes = [
   }
 ]
 
-const router = createRouter({ history, routes })
+const router = createRouter({
+  history,
+  routes
+})
 
 router.beforeEach((to, from, next) => {
   const token = localStorage.getItem('token')

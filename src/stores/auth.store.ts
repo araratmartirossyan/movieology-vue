@@ -26,7 +26,7 @@ export const useAuthStore = defineStore({
       const { jwt, user } = await googleAuthProvider()
       localStorage.setItem('token', jwt)
       localStorage.setItem('userId', user.id)
-      // useUserStore().$patch({ profile: user })
+      useUserStore().$patch({ profile: user })
     }
   }
 })

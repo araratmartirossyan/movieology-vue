@@ -35,7 +35,7 @@ declare namespace MOVIEOLOGY {
     movie: string
   }
 
-  type Movie = {
+  interface Movie {
     Genre: GenreEnum
     _id: string
     id: string
@@ -51,6 +51,10 @@ declare namespace MOVIEOLOGY {
     updatedAt: string
     __v: number
     genres: Genre[]
+  }
+
+  interface FavoriteMovie extends Movie {
+    favId: string
   }
 
   type Role = {
