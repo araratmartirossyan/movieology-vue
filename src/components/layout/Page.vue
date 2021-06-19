@@ -1,6 +1,6 @@
 <template>
-  <div class="tg-page">
-    <div class="tg-page__top">
+  <div class="tg-page" :class="{ webMode: webMode }">
+    <div class="tg-page__top" :class="{ webMode: webMode }">
       <div class="prepend">
         <slot name="prepend" />
       </div>
@@ -23,11 +23,18 @@
 </template>
 
 <script setup lang="ts">
-import { defineComponent } from '@vue/runtime-core'
+import { defineComponent, ref } from '@vue/runtime-core'
 
 defineComponent({
   name: 'Page'
 })
+
+const webMode = ref(true)
+
+if (window.matchMedia('(display-mode: standalone)').matches) {
+  console.log('This is running as standalone.')
+  webMode.value = false
+}
 </script>
 
 <style lang="scss" scoped>
@@ -39,11 +46,14 @@ defineComponent({
   flex-direction: column;
   left: 0;
   padding: 0;
-  // padding: env(safe-area-inset-top, 0) env(safe-area-inset-right, 0)
-  //   env(safe-area-inset-bottom, 0) env(safe-area-inset-left, 0);
   position: absolute;
   right: 0;
   top: 0;
+
+  .webMode {
+    padding: env(safe-area-inset-top, 0) env(safe-area-inset-right, 0)
+      env(safe-area-inset-bottom, 0) env(safe-area-inset-left, 0);
+  }
 
   &__top {
     color: #fff;
@@ -56,7 +66,10 @@ defineComponent({
     justify-content: space-between;
     align-items: center;
     font-weight: bold;
-    margin-top: 60px;
+
+    .webMode {
+      margin-top: 60px;
+    }
   }
 
   &__top,
