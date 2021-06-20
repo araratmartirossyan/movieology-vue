@@ -6,10 +6,8 @@ export const googleAuthProvider = async () => {
       method: 'get',
       url: `auth/google/callback${location.search}`
     })
-    console.log('here', res)
     return res
   } catch (err) {
-    console.log('erere', err)
     throw err
   }
 }

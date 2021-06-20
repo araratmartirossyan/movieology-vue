@@ -5,6 +5,7 @@ import { useUserStore } from './users.store'
 type AuthStore = {
   loading: boolean
   token: string
+  loginError: string
 }
 
 export const useAuthStore = defineStore({
@@ -23,10 +24,14 @@ export const useAuthStore = defineStore({
       this.loading = !this.loading
     },
     async googleAuth() {
-      const { jwt, user } = await googleAuthProvider()
-      localStorage.setItem('token', jwt)
-      localStorage.setItem('userId', user.id)
-      useUserStore().$patch({ profile: user })
+      try {
+        const { jwt, user } = await googleAuthProvider()
+        localStorage.setItem('token', jwt)
+        localStorage.setItem('userId', user.id)
+        useUserStore().$patch({ profile: user })
+      } catch (err) {
+        this.loginError = JSON.stringify(err)
+      }
     }
   }
 })
