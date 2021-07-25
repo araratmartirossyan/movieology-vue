@@ -84,7 +84,7 @@
 import { ElButton } from 'element-plus'
 
 // Vue Hooks
-import { onMounted } from '@vue/runtime-core'
+import { onMounted, onUnmounted } from '@vue/runtime-core'
 import { useRouter, useRoute } from 'vue-router'
 
 // Stores
@@ -98,11 +98,13 @@ const authStore = useAuthStore()
 
 const { back, push } = useRouter()
 const {
-  params: { id }
+  params: { id },
+  query
 } = useRoute()
 
 onMounted(async () => {
-  if (!movieStore.movie.id) {
+  console.log(query, 'type')
+  if (!query.type) {
     await movieStore.fetchMovie(id as string)
   }
 })

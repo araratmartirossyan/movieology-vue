@@ -70,7 +70,11 @@ const animate = async () => {
 
   setTimeout(() => {
     const { currentMovie } = movieStore
-    push({ name: 'movie', params: { id: currentMovie.id } })
+    push({
+      name: 'movie',
+      params: { id: currentMovie.id },
+      query: { type: 'suggested' }
+    })
   }, 1400)
 }
 </script>
