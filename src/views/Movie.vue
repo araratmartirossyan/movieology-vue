@@ -84,7 +84,7 @@
 import { ElButton } from 'element-plus'
 
 // Vue Hooks
-import { onMounted, onUnmounted } from '@vue/runtime-core'
+import { onMounted } from '@vue/runtime-core'
 import { useRouter, useRoute } from 'vue-router'
 
 // Stores

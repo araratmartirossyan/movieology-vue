@@ -4,6 +4,10 @@
 declare module 'vue' {
   export interface GlobalComponents {
     Heading: typeof import('./src/components/Heading.vue')['default']
+    MovieList: typeof import('./src/components/MovieList.vue')['default']
+    MovieListItem: typeof import('./src/components/MovieListItem.vue')['default']
+    Tab: typeof import('./src/components/Tab.vue')['default']
+    Tabs: typeof import('./src/components/Tabs.vue')['default']
     GsIcon: typeof import('./src/components/Icons/GsIcon.vue')['default']
     GsIconRegistry: typeof import('./src/components/Icons/GsIconRegistry.vue')['default']
     WhatToWatchButton: typeof import('./src/components/WhatToWatchButton/WhatToWatchButton.vue')['default']

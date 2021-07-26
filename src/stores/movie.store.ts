@@ -1,17 +1,25 @@
 import { defineStore } from 'pinia'
+// import router from '@/router'
+
+// Services
 import {
-  checkIsFav,
   fetchMovie,
-  like,
-  unlike,
-  suggestMovie
+  suggestMovie,
+  movieSearch
 } from '../services/movie.service'
 
-// Utils
+import { pushToWishList } from '../services/wish.service'
+import { checkIsFav, like, unlike } from '../services/favs.service'
+
+// Notification
+import { ElMessage } from 'element-plus'
+
 type MovieStore = {
   currentMovie: MOVIEOLOGY.Movie
   loading: boolean
   isFav: boolean
+  searchResult: MOVIEOLOGY.SearchResult
+  wishingError: string | null
 }
 
 export const useMovieStore = defineStore({
@@ -20,10 +28,14 @@ export const useMovieStore = defineStore({
     <MovieStore>{
       currentMovie: {},
       loading: false,
-      isFav: false
+      isFav: false,
+      searchResult: {},
+      wishingError: null
     },
   getters: {
-    movie: ({ currentMovie }) => currentMovie
+    movie: ({ currentMovie }) => currentMovie,
+    foundMovie: ({ searchResult }) => searchResult.results,
+    totalFound: ({ searchResult }) => searchResult.total_results
   },
   actions: {
     async fetchSuggestedMovie() {
@@ -54,6 +66,34 @@ export const useMovieStore = defineStore({
         this.isFav = false
       } catch (err) {
         this.isFav = false
+      }
+    },
+    async search(searchQuery: string) {
+      const foundMovies = await movieSearch(searchQuery)
+      this.searchResult = foundMovies
+    },
+    async addToWishList(movie: MOVIEOLOGY.TMDBMovie) {
+      try {
+        await pushToWishList(movie)
+        ElMessage.success({
+          message: 'Добавлено',
+          type: 'success'
+        })
+
+        const foundIndex = this.searchResult.results.findIndex(
+          (item) => item.id === movie.id
+        )
+
+        this.searchResult.results[foundIndex] = {
+          ...this.searchResult.results[foundIndex],
+          added: true
+        }
+      } catch (err) {
+        ElMessage.error({
+          message: 'Уже в списке :)',
+          type: 'error'
+        })
+        this.wishingError = err.data.message
       }
     }
   }

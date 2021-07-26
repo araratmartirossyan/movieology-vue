@@ -1,5 +1,4 @@
 import request from './rest.service'
-// import { propOr, head, isEmpty } from 'ramda'
 
 export const suggestMovie = async () => {
   try {
@@ -37,65 +36,13 @@ export const fetchMovies = async () => {
   }
 }
 
-export const like = async (movieId: string) => {
+export const movieSearch = async (searchQuery: string) => {
   try {
-    const userId = localStorage.getItem('userId')
-    const like = await request({
-      method: 'post',
-      url: 'favorites',
-      data: {
-        profile: userId,
-        movie: movieId
-      }
-    })
-    return like
-  } catch (err) {
-    throw err
-  }
-}
-
-export const unlike = async (movie: string) => {
-  try {
-    const profile = localStorage.getItem('userId')
-    const like = await request({
-      method: 'delete',
-      url: `/movies/remove-from-fav`,
-      data: {
-        profile,
-        movie
-      }
-    })
-
-    return like
-  } catch (err) {
-    throw err
-  }
-}
-
-export const checkIsFav = async (movie: string) => {
-  try {
-    const profile = localStorage.getItem('userId')
-    const fav = await request<{ inFavorites: boolean }>({
-      method: 'post',
-      url: `/movies/is-fav`,
-      data: {
-        profile,
-        movie
-      }
-    })
-    return fav.inFavorites
-  } catch (err) {
-    return false
-  }
-}
-
-export const fetchFavs = async () => {
-  try {
-    const favs = await request<MOVIEOLOGY.FavoriteMovie[]>({
+    const result = await request<MOVIEOLOGY.SearchResult>({
       method: 'get',
-      url: 'favorites'
+      url: `movies/find-movie?s=${searchQuery}`
     })
-    return favs
+    return result
   } catch (error) {
     throw error
   }

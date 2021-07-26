@@ -6,6 +6,7 @@ const Home = () => import('./views/Home.vue')
 const Profile = () => import('./views/Profile.vue')
 const Login = () => import('./views/Login.vue')
 const Movie = () => import('./views/Movie.vue')
+const Search = () => import('./views/Search.vue')
 
 const history = createWebHistory()
 
@@ -29,6 +30,12 @@ const routes = [
     path: '/profile',
     name: 'profile',
     component: Profile,
+    beforeEnter: profileGuard
+  },
+  {
+    path: '/search',
+    name: 'search',
+    component: Search,
     beforeEnter: profileGuard
   },
   {
