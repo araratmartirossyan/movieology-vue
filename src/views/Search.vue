@@ -11,16 +11,16 @@
         clearable
       />
 
-      <movie-list :is-empty="movieStore.searchResult.total_results === 0">
+      <movie-list :is-empty="searchStore.totalFound === 0">
         <movie-list-item
           class="movie-list__card"
-          v-for="movie in movieStore.foundMovie"
+          v-for="movie in searchStore.foundMovie"
           :key="movie.id"
           :title="movie.title"
           :added="movie.added"
           :poster-path="movie.poster_path"
           :overview="movie.overview"
-          @click="movieStore.addToWishList(movie)"
+          @click="favoriteStore.addToWishList(movie)"
         />
       </movie-list>
     </div>
@@ -39,15 +39,16 @@ import MovieList from '@/components/MovieList.vue'
 import MovieListItem from '@/components/MovieListItem.vue'
 
 // Stores
-import { useMovieStore } from '@/stores'
+import { useFavoriteStore, useSearchStore } from '@/stores'
 
-const movieStore = useMovieStore()
+const searchStore = useSearchStore()
+const favoriteStore = useFavoriteStore()
 
 const searchString = ref('')
 const debounced = useDebounce(searchString, 1000)
 
 watch(debounced, () => {
-  movieStore.search(searchString.value)
+  searchStore.search(searchString.value)
 })
 </script>
 

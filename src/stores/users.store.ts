@@ -5,46 +5,55 @@ import router from '@/router'
 import { fetchUserProfile } from '@/services/auth.service'
 import { fetchFavs } from '@/services/favs.service'
 import { fetchWishList } from '@/services/wish.service'
+import { ref } from 'vue'
 
-type UserStore = {
-  userId: string
-  profile: MOVIEOLOGY.Profile
-  favorites: MOVIEOLOGY.FavoriteMovie[]
-  wishes: MOVIEOLOGY.WishListItem[]
-}
+export const useUserStore = defineStore('users', () => {
+  const userId = ref<string>(localStorage.getItem('userId') ?? '')
+  const profile = ref<MOVIEOLOGY.Profile>()
+  const favorites = ref<MOVIEOLOGY.FavoriteMovie[]>()
+  const wishes = ref<MOVIEOLOGY.WishListItem[]>()
 
-export const useUserStore = defineStore({
-  id: 'users',
-  state: () => <UserStore>(<unknown>{
-      favorites: [],
-      wishes: [],
-      userId: localStorage.getItem('userId'),
-      profile: {}
-    }),
-  getters: {},
-  actions: {
-    init() {
-      if (this.userId) {
-        this.fetchProfile()
-        return
-      }
-      this.logout()
-    },
-    logout() {
-      router.push('/')
-    },
-    async fetchProfile() {
-      try {
-        this.profile = await fetchUserProfile()
-      } catch (err) {
-        this.logout()
-      }
-    },
-    async fetchFavs() {
-      this.favorites = await fetchFavs()
-    },
-    async getWishList() {
-      this.wishes = await fetchWishList()
+  const init = () => {
+    if (userId.value) {
+      fetchProfile()
+      return
     }
+    logout()
+  }
+
+  const logout = () => {
+    // router.push('/')
+    // localStorage.removeItem('token')
+    // localStorage.removeItem('userId')
+  }
+
+  const fetchProfile = async () => {
+    try {
+      const user = await fetchUserProfile()
+      profile.value = user
+      userId.value = user._id
+    } catch (err) {
+      logout()
+    }
+  }
+
+  const fetchFavorites = async () => {
+    favorites.value = await fetchFavs()
+  }
+
+  const getWishList = async () => {
+    wishes.value = await fetchWishList()
+  }
+
+  return {
+    fetchFavorites,
+    fetchProfile,
+    getWishList,
+    logout,
+    init,
+    userId,
+    profile,
+    wishes,
+    favorites
   }
 })

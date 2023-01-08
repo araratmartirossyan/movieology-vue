@@ -26,9 +26,9 @@ export const fetchMovie = async (movieId: string) => {
 
 export const fetchMovies = async () => {
   try {
-    const data = await request({
+    const data = await request<MOVIEOLOGY.Movie[]>({
       method: 'get',
-      url: `movies`
+      url: `movies?_limit=20`
     })
     return data
   } catch (err) {

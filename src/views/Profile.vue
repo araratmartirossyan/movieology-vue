@@ -10,9 +10,10 @@
       />
 
       <div class="profile-page__info_block">
-        <h2>
+        <h2 v-if="userStore.profile">
           {{ userStore.profile.username }}
         </h2>
+        <h2 v-else>Сикрет Юзер</h2>
       </div>
     </div>
     <mv-tabs>
@@ -69,7 +70,7 @@ const tabs = [
 ]
 
 const userStore = useUserStore()
-userStore.fetchFavs()
+userStore.fetchFavorites()
 userStore.getWishList()
 </script>
 

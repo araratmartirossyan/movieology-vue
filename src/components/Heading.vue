@@ -5,17 +5,14 @@
 </template>
 
 <script setup lang="ts">
-import { defineProps } from 'vue'
+interface Props {
+  tag: string
+  bold: boolean
+}
 
-defineProps({
-  tag: {
-    type: String,
-    default: 'h2',
-  },
-  bold: {
-    type: Boolean,
-    default: false,
-  },
+withDefaults(defineProps<Props>(), {
+  tag: 'h2',
+  bold: false
 })
 </script>
 

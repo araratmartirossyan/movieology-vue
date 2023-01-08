@@ -1,8 +1,21 @@
 <template>
   <page class="home-page">
-    <template #append v-if="authStore.loggedIn"> </template>
+    <template #append v-if="authStore.loggedIn">
+      <div class="home-page__top">
+        <el-avatar
+          :size="32"
+          src="https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcS3EdZCJ7-noxgOD4QXA8SvxZWRSHFliZanJj2ndCpCREdPnY6U"
+        />
+      </div>
+    </template>
     <div class="home-page__content">
-      <what-to-watch-button />
+      <NewsSlider />
+      <h2>Выбор редакции</h2>
+      <MovieSlider />
+
+      <div class="home-page__action">
+        <what-to-watch-button />
+      </div>
     </div>
 
     <template #bottom v-if="!authStore.loggedIn">
@@ -14,27 +27,31 @@
         </div>
       </div>
     </template>
-    <template #bottom>
-      <div class="home-page__bottom">
-        <div class="home-page__bottom-icons">
-          <i class="el-icon-user user-icon" @click="$router.push('/profile')" />
-        </div>
-      </div>
-    </template>
   </page>
 </template>
 
 <script lang="ts" setup>
 // Components
+import { User } from '@element-plus/icons-vue'
+import { ElAvatar } from 'element-plus'
+import MovieSlider from '@/components/MovieSlider.vue'
+import NewsSlider from '@/components/NewsSlider.vue'
+
 import GoogleSvg from '@/assets/icons/google.svg'
 import FacebookSvg from '@/assets/icons/facebook.svg'
 
-import { useAuthStore } from '@/stores'
+import { useAuthStore, useUserStore } from '@/stores'
+import { useRouter } from 'vue-router'
 
 const authStore = useAuthStore()
+const { push } = useRouter()
 
 const loginWithGoogle = async () => {
   window.location.href = 'https://movie.incodewetrust.dev/connect/google'
+}
+
+const redirect = () => {
+  push('/profile')
 }
 </script>
 
@@ -42,6 +59,14 @@ const loginWithGoogle = async () => {
 @import '@/assets/styles';
 
 .home-page {
+  &__top {
+    display: flex;
+  }
+  h2 {
+    color: white;
+    text-align: left;
+    margin-left: $spacing-m;
+  }
   .user-icon {
     font-size: 26px;
     border-radius: 4px;
@@ -49,46 +74,16 @@ const loginWithGoogle = async () => {
     color: white;
     background: $color-primary;
   }
-  &__content {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100%;
+
+  &__action {
+    margin-left: $spacing-m;
   }
-  &__bottom {
+
+  &__content {
+    margin-top: 80px;
     display: flex;
-    justify-content: center;
+    height: 100%;
     flex-direction: column;
-    margin-bottom: 20px;
-    align-items: center;
-    padding: 0 20px;
-    .pre_link {
-      margin-bottom: 10px;
-      color: $color-white;
-    }
-
-    &-icons {
-      display: flex;
-
-      .link {
-        text-align: center;
-        padding: 10px;
-        display: flex;
-        width: 87px;
-        height: 40px;
-        margin-right: 10px;
-        justify-content: center;
-        text-transform: uppercase;
-        border-radius: 4px;
-        color: $color-white;
-        text-decoration: none;
-        background: $color-white;
-      }
-
-      .disabled {
-        background: gray;
-      }
-    }
   }
 }
 </style>

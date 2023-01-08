@@ -47,7 +47,7 @@ defineComponent({
 
   &__top {
     color: #fff;
-    height: 52px;
+    height: 70px;
     background: none;
     display: flex;
     position: fixed !important;

@@ -7,7 +7,7 @@ const Profile = () => import('./views/Profile.vue')
 const Login = () => import('./views/Login.vue')
 const Movie = () => import('./views/Movie.vue')
 const Search = () => import('./views/Search.vue')
-
+const Post = () => import('./views/Post.vue')
 const history = createWebHistory()
 
 const profileGuard: NavigationGuard = (to, from, next) => {
@@ -44,6 +44,11 @@ const routes = [
     component: Movie
   },
   {
+    path: '/posts/:id',
+    name: 'posts',
+    component: Post
+  },
+  {
     path: '/login',
     name: 'login',
     component: Login
@@ -57,6 +62,8 @@ const router = createRouter({
 
 router.beforeEach((to, from, next) => {
   const token = localStorage.getItem('token')
+  console.log('TOKEN', token)
+
   if (token) {
     setToken(token)
     useAuthStore().$patch({ token })

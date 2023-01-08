@@ -17,14 +17,14 @@
 </template>
 
 <script lang="ts" setup>
-import { defineProps } from 'vue-demi'
-
-defineProps({
-  isEmpty: {
-    type: Boolean,
-    default: false
+withDefaults(
+  defineProps<{
+    isEmpty: boolean
+  }>(),
+  {
+    isEmpty: false
   }
-})
+)
 </script>
 
 <style lang="scss">
