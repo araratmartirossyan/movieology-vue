@@ -1,15 +1,14 @@
 <template>
   <div class="slider">
-    <carousel :items-to-show="2.3" :transition="500" infinity>
-      <slide v-for="movie in movieStore.movies" :key="movie._id">
-        <MovieSlide :movie="movie" />
-      </slide>
-    </carousel>
+    <MovieSlide
+      v-for="movie in movieStore.movies"
+      :key="movie._id"
+      :movie="movie"
+    />
   </div>
 </template>
 
 <script setup lang="ts">
-import { Carousel, Slide } from 'vue3-carousel'
 import MovieSlide from './MovieSlide.vue'
 import { useMovieStore } from '@/stores/movie.store'
 
@@ -20,11 +19,14 @@ movieStore.fetchMovies()
 <style lang="scss">
 @import '@/assets/styles';
 
-.carousel__slide {
-  margin-right: $spacing-m;
-}
-
-.carousel__slide:first-child {
-  padding-left: $spacing-m;
+.slider {
+  display: flex;
+  position: relative;
+  padding: 0;
+  overflow: scroll;
+  overscroll-behavior-x: contain;
+  -ms-scroll-snap-type: x mandatory;
+  scroll-snap-type: x mandatory;
+  list-style: none;
 }
 </style>

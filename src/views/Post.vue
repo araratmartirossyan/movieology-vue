@@ -3,12 +3,6 @@
     <template #prepend>
       <gs-icon icon="arrow-left" size="32" @click="$router.back()" />
     </template>
-    <template #append v-if="authStore.loggedIn">
-      <el-avatar
-        :size="32"
-        src="https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcS3EdZCJ7-noxgOD4QXA8SvxZWRSHFliZanJj2ndCpCREdPnY6U"
-      />
-    </template>
     <div class="post">
       <img class="post__image" :src="poster" v-if="poster" />
       <div class="post__heading">
@@ -29,15 +23,14 @@
 </template>
 
 <script setup lang="ts">
-import { ElAvatar, ElIcon } from 'element-plus'
+import { ElIcon } from 'element-plus'
 import { Star, StarFilled } from '@element-plus/icons-vue'
 import { onMounted, ref } from 'vue'
 import { useRoute } from 'vue-router'
 import Markdown from 'vue3-markdown-it'
 
-import { useAuthStore, useNewsStore, useUserStore } from '@/stores'
+import { useNewsStore } from '@/stores'
 
-const authStore = useAuthStore()
 const newsStore = useNewsStore()
 
 const poster = ref<string>('')

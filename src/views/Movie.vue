@@ -3,17 +3,7 @@
     <template #prepend>
       <gs-icon icon="arrow-left" size="32" @click="$router.back()" />
     </template>
-    <template #append v-if="authStore.loggedIn">
-      <el-avatar
-        @click="
-          $router.push({
-            name: 'profile'
-          })
-        "
-        :size="32"
-        src="https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcS3EdZCJ7-noxgOD4QXA8SvxZWRSHFliZanJj2ndCpCREdPnY6U"
-      />
-    </template>
+
     <div className="wrap">
       <div className="cellphone-container" v-if="movieStore.movie">
         <div className="movie">
@@ -98,13 +88,7 @@
 <script setup lang="ts">
 // Components
 import { ElButton, ElIcon } from 'element-plus'
-import {
-  VideoPlay,
-  User,
-  Star,
-  StarFilled,
-  Share
-} from '@element-plus/icons-vue'
+import { VideoPlay, Star, StarFilled, Share } from '@element-plus/icons-vue'
 
 // Vue Hooks
 import { onMounted } from '@vue/runtime-core'

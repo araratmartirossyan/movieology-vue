@@ -1,6 +1,6 @@
 <template>
   <div class="carousel_item" @click="navigate">
-    <div class="carousel_item__image"></div>
+    <div class="carousel_item__image" />
     <span class="carousel_item__title">{{ movie.Title }}</span>
     <span class="carousel_item__subtitle"
       >{{ movie.Runtime }}, {{ movie.Year }}</span
@@ -28,15 +28,17 @@ const navigate = () => {
 }
 </script>
 
-<style>
+<style lang="scss">
+@import '@/assets/styles';
+
 .carousel_item {
   color: #fff;
   font-size: 20px;
   display: flex;
-  height: 340px;
   flex-direction: column;
   width: 100%;
   text-align: left;
+  margin-left: $spacing-m;
 }
 
 .carousel_item__title {
@@ -60,7 +62,7 @@ const navigate = () => {
   background-size: cover;
   border-radius: 24px;
   height: 240px;
-  width: 100%;
-  box-shadow: inset 0 1px 2px #000;
+  width: 180px;
+  box-shadow: rgb(0 0 0 / 10%) 0px 20px 25px, rgb(0 0 0 / 4%) 0px 10px 10px;
 }
 </style>

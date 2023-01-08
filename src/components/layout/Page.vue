@@ -8,6 +8,18 @@
         <slot name="top" />
       </div>
       <div class="append">
+        <div class="home-page__top">
+          <el-avatar
+            v-if="authStore.loggedIn"
+            @click="
+              $router.push({
+                name: 'profile'
+              })
+            "
+            :size="32"
+            src="https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcS3EdZCJ7-noxgOD4QXA8SvxZWRSHFliZanJj2ndCpCREdPnY6U"
+          />
+        </div>
         <slot name="append" />
       </div>
     </div>
@@ -23,11 +35,14 @@
 </template>
 
 <script setup lang="ts">
+import { ElAvatar } from 'element-plus'
 import { defineComponent } from '@vue/runtime-core'
+import { useAuthStore } from '@/stores'
 
 defineComponent({
   name: 'Page'
 })
+const authStore = useAuthStore()
 </script>
 
 <style lang="scss" scoped>

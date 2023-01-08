@@ -5,7 +5,7 @@ import ElementPlus from 'element-plus'
 import Markdown from 'vue3-markdown-it'
 
 import 'element-plus/dist/index.css'
-import 'vue3-carousel/dist/carousel.css'
+// import 'vue3-carousel/dist/carousel.css'
 
 import './index.css'
 // deps

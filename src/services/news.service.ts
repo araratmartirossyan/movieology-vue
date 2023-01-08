@@ -12,11 +12,11 @@ export const fetchPost = async (postId: string) => {
   }
 }
 
-export const fetchPosts = async () => {
+export const fetchPosts = async (category: string = 'review') => {
   try {
     const data = await request<MOVIEOLOGY.Post[]>({
       method: 'get',
-      url: `posts?_limit=20`
+      url: `posts?_limit=20&type=${category}`
     })
     return data
   } catch (err) {

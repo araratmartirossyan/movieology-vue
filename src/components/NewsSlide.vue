@@ -16,14 +16,14 @@ const props = defineProps<{
 
 const { push } = useRouter()
 const BASE_URL = 'https://movie.incodewetrust.dev'
+
 const poster = computed(() => {
   if (props.post.poster) {
-    return `url(${BASE_URL}${props.post.poster.formats.medium.url})`
+    return `url(${BASE_URL}${props.post.poster.url})`
   }
 
   return 'https://via.placeholder.com/350/'
 })
-// const poster = ''
 
 const navigate = () => {
   push({
@@ -35,19 +35,24 @@ const navigate = () => {
 }
 </script>
 
-<style>
+<style lang="scss">
+@import '@/assets/styles';
 .news_item {
   color: #fff;
   font-size: 20px;
   display: flex;
-  height: 340px;
   flex-direction: column;
-  width: 100%;
+  width: 450px;
   text-align: left;
+  margin-left: $spacing-m;
+}
+
+.news_item:last-child {
+  padding-right: $spacing-m;
 }
 
 .news_item__title {
-  font-size: 14px;
+  font-size: 18px;
   font-weight: 600;
   overflow: hidden;
   white-space: nowrap;
@@ -63,7 +68,7 @@ const navigate = () => {
   display: flex;
   flex-direction: column-reverse;
   padding: 16px;
-  width: 100%;
+  width: 340px;
   box-shadow: inset 0 0 50px #000;
 }
 </style>

@@ -1,10 +1,6 @@
 <template>
   <div class="news-slider">
-    <carousel :items-to-show="1.2" :transition="500" infinity>
-      <slide v-for="post in newsStore.posts" :key="post._id">
-        <NewsSlide :post="post" />
-      </slide>
-    </carousel>
+    <NewsSlide :post="post" v-for="post in newsStore.posts" :key="post._id" />
   </div>
 </template>
 
@@ -26,6 +22,17 @@ newsStore.fetchPosts()
 
 .carousel__slide:first-child {
   padding-left: $spacing-m;
+}
+
+.news-slider {
+  display: flex;
+  position: relative;
+  padding: 0;
+  overflow: scroll;
+  overscroll-behavior-x: contain;
+  -ms-scroll-snap-type: x mandatory;
+  scroll-snap-type: x mandatory;
+  list-style: none;
 }
 
 .news-slider,

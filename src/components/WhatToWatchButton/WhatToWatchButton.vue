@@ -90,6 +90,8 @@ $success: #3fdc75;
   line-height: 20px;
   padding: 12px;
   border-radius: 4px;
+  width: 100%;
+  height: 60px;
   color: #fff;
   font-weight: 500;
   border: none;

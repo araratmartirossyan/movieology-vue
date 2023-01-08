@@ -10,6 +10,7 @@ declare module 'vue' {
     MovieSlider: typeof import('./src/components/MovieSlider.vue')['default']
     NewsSlide: typeof import('./src/components/NewsSlide.vue')['default']
     NewsSlider: typeof import('./src/components/NewsSlider.vue')['default']
+    StreamingSlider: typeof import('./src/components/StreamingSlider.vue')['default']
     Tab: typeof import('./src/components/Tab.vue')['default']
     Tabs: typeof import('./src/components/Tabs.vue')['default']
     GsIcon: typeof import('./src/components/Icons/GsIcon.vue')['default']
