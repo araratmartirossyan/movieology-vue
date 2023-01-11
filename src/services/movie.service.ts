@@ -24,6 +24,18 @@ export const fetchMovie = async (movieId: string) => {
   }
 }
 
+export const fetchStreamingMovies = async (streamingId: string) => {
+  try {
+    const data = await request<MOVIEOLOGY.StreamingMovies[]>({
+      method: 'get',
+      url: `movie-categories?title=${streamingId}`
+    })
+    return data[0].movies
+  } catch (error) {
+    throw error
+  }
+}
+
 export const fetchMovies = async () => {
   try {
     const data = await request<MOVIEOLOGY.Movie[]>({

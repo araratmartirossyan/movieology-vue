@@ -7,11 +7,17 @@ import { useFavoriteStore } from './favorite.store'
 
 export const useMovieStore = defineStore('movies', () => {
   const movie = ref<MOVIEOLOGY.Movie>()
-  const movies = ref<MOVIEOLOGY.Movie[]>()
+  const movies = ref<MOVIEOLOGY.Movie[]>([])
+  const streamingMovies = ref<MOVIEOLOGY.Movie[]>([])
   const loading = ref<boolean>()
   const movieId = ref<string>('')
 
   const favStore = useFavoriteStore()
+
+  const fetchStreamingMovies = async (id: string) => {
+    const result = await movieService.fetchStreamingMovies(id)
+    streamingMovies.value = result
+  }
 
   const fetchSuggestedMovie = async () => {
     loading.value = true
@@ -42,6 +48,8 @@ export const useMovieStore = defineStore('movies', () => {
     fetchSuggestedMovie,
     fetchMovie,
     fetchMovies,
+    fetchStreamingMovies,
+    streamingMovies,
     movies,
     movie,
     movieId,

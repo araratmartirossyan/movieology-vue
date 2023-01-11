@@ -27,39 +27,44 @@ import Prime from '@/assets/icons/prime.svg'
 const streaming = [
   {
     name: 'Netflix',
-    id: '1',
+    id: 'netflix',
     icon: Netflix
   },
   {
     name: 'Disney',
-    id: '2',
+    id: 'disney',
     icon: Disney
   },
   {
     name: 'Hbo',
-    id: '3',
+    id: 'hbo',
     icon: Hbo
   },
   {
     name: 'Apple',
-    id: '4',
+    id: 'appleTv',
     icon: Apple
   },
   {
     name: 'Hulu',
-    id: '5',
+    id: 'hulu',
     icon: Hulu
   },
   {
     name: 'Prime',
-    id: '6',
+    id: 'amazon',
     icon: Prime
   }
 ]
 
-const activeTab = ref<string>('1')
+const emits = defineEmits<{
+  (e: 'on-change', id: string): void
+}>()
+
+const activeTab = ref<string>('appleTv')
 const setActiveTab = (id: string) => {
   activeTab.value = id
+  emits('on-change', id)
 }
 </script>
 

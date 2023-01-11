@@ -4,11 +4,14 @@
       <h2 class="home-page__title">Рецензии</h2>
       <NewsSlider />
       <h2 class="home-page__title">Выбор редакции</h2>
-      <MovieSlider />
+      <MovieSlider :movies="movieStore.movies" />
 
       <div class="home-page__action">
-        <StreamingSlider />
-        <MovieSlider />
+        <StreamingSlider @on-change="fetchStreamingMovies" />
+        <MovieSlider
+          v-if="movieStore.streamingMovies"
+          :movies="movieStore.streamingMovies"
+        />
       </div>
 
       <div class="home-page__search">
@@ -35,9 +38,16 @@ import StreamingSlider from '@/components/StreamingSlider.vue'
 import GoogleSvg from '@/assets/icons/google.svg'
 
 // Stores
-import { useAuthStore } from '@/stores'
+import { useAuthStore, useMovieStore } from '@/stores'
 
 const authStore = useAuthStore()
+const movieStore = useMovieStore()
+movieStore.fetchMovies()
+
+const fetchStreamingMovies = async (id: string) => {
+  await movieStore.fetchStreamingMovies(id)
+}
+fetchStreamingMovies('appleTv')
 
 const loginWithGoogle = async () => {
   window.location.href = 'https://movie.incodewetrust.dev/connect/google'

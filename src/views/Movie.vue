@@ -20,7 +20,7 @@
                 <h2 className="title">{{ movieStore.movie.Title }}</h2>
                 <ul className="movie-gen">
                   <li>{{ movieStore.movie.Rated }} /</li>
-                  <li>{{ movieStore.movie.Runtime }} /</li>
+                  <li>{{ movieStore.movie.Runtime }} мин /</li>
                   <li>{{ movieStore.movie.Genre }}</li>
                 </ul>
               </div>
@@ -32,7 +32,7 @@
               <div className="col2">
                 <div className="movie-likes">
                   <!-- <Icon28FavoriteOutline width="{20}" height="{20}" /> -->
-                  <span>{{ movieStore.movie.imdbRating }}</span>
+                  <span>⭐ {{ movieStore.movie.imdbRating }}</span>
                 </div>
               </div>
             </div>
@@ -75,7 +75,7 @@
                 <el-icon style="vertical-align: middle">
                   <VideoPlay />
                 </el-icon>
-                <span class=""> Посоветовать еще </span>
+                <span> Посоветовать еще </span>
               </el-button>
             </div>
           </div>
@@ -262,6 +262,7 @@ h5 {
 .movie-likes {
   color: #fe4141;
   float: right;
+  font-size: 18px;
   display: flex;
   align-items: center;
 }

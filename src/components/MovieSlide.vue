@@ -3,7 +3,7 @@
     <div class="carousel_item__image" />
     <span class="carousel_item__title">{{ movie.Title }}</span>
     <span class="carousel_item__subtitle"
-      >{{ movie.Runtime }}, {{ movie.Year }}</span
+      >{{ movie.Runtime }} мин, {{ movie.Year }}</span
     >
   </div>
 </template>
@@ -44,6 +44,7 @@ const navigate = () => {
 .carousel_item__title {
   font-size: 14px;
   font-weight: 600;
+  width: 180px;
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
