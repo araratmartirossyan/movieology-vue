@@ -21,7 +21,7 @@
 </template>
 
 <script lang="ts" setup>
-import * as hh from 'hammerjs'
+import Hammer from 'hammerjs'
 import { ref, onMounted } from 'vue'
 
 const currentIndex = ref<number>(0)
