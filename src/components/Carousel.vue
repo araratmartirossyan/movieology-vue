@@ -21,7 +21,7 @@
 </template>
 
 <script lang="ts" setup>
-import * as Hammer from 'hammerjs'
+import * as hh from 'hammerjs'
 import { ref, onMounted } from 'vue'
 
 const currentIndex = ref<number>(0)
@@ -68,7 +68,6 @@ const prev = () => {
 }
 
 onMounted(() => {
-  // @ts-ignore
   const element = new Hammer(carousel.value)
   element.get('swipe').set({ direction: Hammer.DIRECTION_HORIZONTAL })
   element.on('swipeleft', next)
