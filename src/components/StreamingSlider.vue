@@ -61,7 +61,7 @@ const emits = defineEmits<{
   (e: 'on-change', id: string): void
 }>()
 
-const activeTab = ref<string>('appleTv')
+const activeTab = ref<string>('netflix')
 const setActiveTab = (id: string) => {
   activeTab.value = id
   emits('on-change', id)
@@ -80,8 +80,12 @@ const setActiveTab = (id: string) => {
   -ms-scroll-snap-type: x mandatory;
   scroll-snap-type: x mandatory;
   list-style: none;
-  margin-left: $spacing-m;
+  padding-left: $spacing-m;
   margin-bottom: $spacing-m;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
 
   &__slide {
     margin-right: 8px;

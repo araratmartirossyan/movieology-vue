@@ -36,7 +36,7 @@ withDefaults(
   &__nothing-found {
     width: 100%;
     background-color: $color-white;
-    border-radius: $spacing-s;
+    border-radius: $border-radius-l;
     box-shadow: #000 0px 2px 4px;
     display: flex;
     flex-direction: column;
@@ -50,7 +50,7 @@ withDefaults(
 
     img {
       width: 100%;
-      border-radius: $spacing-s;
+      border-radius: $border-radius-l;
     }
   }
 }

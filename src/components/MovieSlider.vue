@@ -26,4 +26,8 @@ defineProps<{
   list-style: none;
   padding-right: $spacing-m;
 }
+
+.slider::-webkit-scrollbar {
+  display: none;
+}
 </style>

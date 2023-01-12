@@ -63,7 +63,7 @@ const navigate = () => {
 .news_item__image {
   background-image: v-bind(poster);
   background-size: cover;
-  border-radius: 24px;
+  border-radius: $border-radius-l;
   height: 180px;
   display: flex;
   flex-direction: column-reverse;

@@ -3,8 +3,10 @@ import { compile, computed, ref } from 'vue'
 
 // Services
 import * as newsService from '../services/news.service'
+import { useAuthStore } from './auth.store'
 
 export const useNewsStore = defineStore('news', () => {
+  const authStore = useAuthStore()
   // Posts
   const post = ref<MOVIEOLOGY.Post>()
   const posts = ref<MOVIEOLOGY.Post[]>()
@@ -14,7 +16,9 @@ export const useNewsStore = defineStore('news', () => {
     loading.value = true
     const [result] = await newsService.fetchPost(id)
     post.value = result
-    checkLike(result._id)
+    if (authStore.loggedIn) {
+      await checkLike(result._id)
+    }
     loading.value = false
 
     return post.value

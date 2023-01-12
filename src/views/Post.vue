@@ -12,7 +12,7 @@
             <Star v-if="!newsStore.isLiked" />
             <StarFilled v-else />
           </el-icon>
-          <span class="post__likes-count">
+          <span class="post__like-count">
             {{ newsStore.likesCount }}
           </span>
         </div>
@@ -26,29 +26,38 @@
 import { ElIcon } from 'element-plus'
 import { Star, StarFilled } from '@element-plus/icons-vue'
 import { onMounted, ref } from 'vue'
-import { useRoute } from 'vue-router'
+import { useRoute, useRouter } from 'vue-router'
 import Markdown from 'vue3-markdown-it'
 
-import { useNewsStore } from '@/stores'
+import { useAuthStore, useNewsStore } from '@/stores'
 
 const newsStore = useNewsStore()
+const authStore = useAuthStore()
 
 const poster = ref<string>('')
 
 const {
   params: { id }
 } = useRoute()
+const { push } = useRouter()
 
 onMounted(async () => {
   const post = await newsStore.fetchPost(id as string)
-  poster.value = `${BASE_URL}${post.poster.formats.medium.url}`
+  poster.value = `${BASE_URL}${post.poster.url}`
 })
 
 const BASE_URL = 'https://movie.incodewetrust.dev'
 
 // Like logic
 const handleLike = async () => {
-  await newsStore.likePost()
+  if (authStore.loggedIn) {
+    await newsStore.likePost()
+    return
+  }
+
+  push({
+    name: 'signIn'
+  })
 }
 </script>
 
@@ -61,7 +70,7 @@ const handleLike = async () => {
   text-align: left;
 
   &__image {
-    border-radius: 24px;
+    border-radius: $border-radius-l;
     width: 100%;
     box-shadow: 0px 0px 1px #000;
   }
@@ -70,12 +79,6 @@ const handleLike = async () => {
     display: flex;
     align-items: center;
   }
-
-  &__likes-count {
-    color: white;
-    font-size: 24px;
-  }
-
   &__title {
     color: white;
     font-size: 20px;
@@ -94,6 +97,11 @@ const handleLike = async () => {
   &__like {
     color: white;
     font-size: 32px;
+
+    &-count {
+      color: white;
+      font-size: 24px;
+    }
   }
 }
 </style>

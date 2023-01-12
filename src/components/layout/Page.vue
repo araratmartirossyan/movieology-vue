@@ -8,7 +8,7 @@
         <slot name="top" />
       </div>
       <div class="append">
-        <div class="home-page__top">
+        <div class="home-page__top" v-if="!hideLogin">
           <el-avatar
             v-if="authStore.loggedIn"
             @click="
@@ -18,6 +18,17 @@
             "
             :size="32"
             src="https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcS3EdZCJ7-noxgOD4QXA8SvxZWRSHFliZanJj2ndCpCREdPnY6U"
+          />
+          <img
+            class="login-icon"
+            v-else-if="!authStore.loggedIn"
+            @click="
+              $router.push({
+                name: 'signIn'
+              })
+            "
+            :size="32"
+            src="@/assets/icons/login.png"
           />
         </div>
         <slot name="append" />
@@ -43,6 +54,10 @@ defineComponent({
   name: 'Page'
 })
 const authStore = useAuthStore()
+
+defineProps<{
+  hideLogin?: boolean
+}>()
 </script>
 
 <style lang="scss" scoped>
@@ -78,13 +93,19 @@ const authStore = useAuthStore()
     flex-grow: 0;
     flex-shrink: 0;
     position: relative;
-    z-index: 9999;
+    z-index: 105;
   }
   &__content {
     flex-grow: 1;
     overflow-x: hidden;
     overflow-y: auto;
     z-index: 104;
+  }
+
+  .login-icon {
+    width: 32px;
+    background-color: white;
+    border-radius: $border-radius-s;
   }
 
   .prepend,

@@ -16,7 +16,7 @@ export const fetchPosts = async (category: string = 'review') => {
   try {
     const data = await request<MOVIEOLOGY.Post[]>({
       method: 'get',
-      url: `posts?_limit=20&type=${category}`
+      url: `posts?_limit=20&type=${category}&_sort=createdAt:desc`
     })
     return data
   } catch (err) {

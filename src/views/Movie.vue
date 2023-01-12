@@ -335,15 +335,7 @@ h5 {
 }
 
 .col1,
-.col2,
-.col3,
-.col3rest,
-.col4,
-.col4rest,
-.col5,
-.col5rest,
-.col6,
-.col6rest {
+.col2 {
   margin: 0% 0.5% 0.5% 0.5%;
   padding: 1%;
   float: left;
@@ -357,52 +349,6 @@ h5 {
 
 .col2 {
   width: 47%;
-}
-
-.col3 {
-  width: 30.3333333333%;
-}
-
-.col4 {
-  width: 22%;
-}
-
-.col5 {
-  width: 17%;
-}
-
-.col6 {
-  width: 13.6666666667%;
-}
-
-/* Columns match with their individual number. E.G. col3+col3rest=full width row */
-.col3rest {
-  width: 63.6666666667%;
-}
-
-.col4rest {
-  width: 72%;
-}
-
-.col5rest {
-  width: 77%;
-}
-
-.col6rest {
-  width: 80.3333333333%;
-}
-
-.dribbble-link {
-  width: 50px;
-  height: 50px;
-  position: fixed;
-  bottom: 15px;
-  right: 15px;
-  border-radius: 8px;
-}
-
-.action-row {
-  margin-top: 10px;
 }
 
 .back-btn {

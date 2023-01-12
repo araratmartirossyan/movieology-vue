@@ -3,6 +3,8 @@ import { setToken } from './services/rest.service'
 import { useAuthStore, useUserStore } from './stores'
 
 const Home = () => import('./views/Home.vue')
+const SignIn = () => import('./views/SignIn.vue')
+
 const Profile = () => import('./views/Profile.vue')
 const Login = () => import('./views/Login.vue')
 const Movie = () => import('./views/Movie.vue')
@@ -25,6 +27,11 @@ const routes = [
     path: '/',
     name: 'home',
     component: Home
+  },
+  {
+    path: '/sign-in',
+    name: 'signIn',
+    component: SignIn
   },
   {
     path: '/profile',

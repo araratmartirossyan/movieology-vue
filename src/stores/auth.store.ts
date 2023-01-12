@@ -24,7 +24,7 @@ export const useAuthStore = defineStore('auth', () => {
   }
 
   return {
-    loggedIn: computed(() => !!token),
+    loggedIn: computed(() => !!token.value),
     googleAuth,
     setLoading,
     loading,

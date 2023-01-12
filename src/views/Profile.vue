@@ -63,7 +63,7 @@ import GsIcon from '@/components/Icons/GsIcon.vue'
 import MvTabs from '@/components/Tabs.vue'
 import MvTab from '@/components/Tab.vue'
 
-const activeTab = ref('favorite')
+const activeTab = ref('wish')
 const tabs = [
   { id: 'favorite', title: 'Любимые' },
   { id: 'wish', title: 'Хочу посмотреть' }
@@ -118,6 +118,7 @@ userStore.getWishList()
       background-color: #eee;
       display: inline-block;
       margin: 0 0 0.5em;
+      border-radius: $border-radius-l;
       width: 100%;
     }
   }

@@ -60,7 +60,7 @@ withDefaults(defineProps<Props>(), {
     display: flex;
     justify-content: center;
     align-items: center;
-    border-radius: 4px;
+    border-radius: $border-radius-l;
   }
 }
 </style>

@@ -11,12 +11,14 @@
     "@vueuse/core": "^9.10.0",
     "axios": "^1.2.2",
     "element-plus": "2.2.28",
+    "hammerjs": "^2.0.8",
     "pinia": "^2.0.28",
     "vue": "^3.2.45",
     "vue-router": "4.1.6",
     "vue3-markdown-it": "^1.0.10"
   },
   "devDependencies": {
+    "@types/hammerjs": "^2.0.41",
     "@types/node": "^14.14.37",
     "@vitejs/plugin-vue": "^4.0.0",
     "@vue/compiler-sfc": "^3.2.45",

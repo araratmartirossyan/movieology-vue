@@ -40,7 +40,7 @@ export const fetchMovies = async () => {
   try {
     const data = await request<MOVIEOLOGY.Movie[]>({
       method: 'get',
-      url: `movies?_limit=20`
+      url: `movies?_limit=20&_sort=createdAt:desc`
     })
     return data
   } catch (err) {

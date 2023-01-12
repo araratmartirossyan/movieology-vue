@@ -35,6 +35,13 @@ declare namespace MOVIEOLOGY {
     movie: string
   }
 
+  interface StreamingMovies {
+    movies: Movie[]
+    title: string
+    _id: string
+    id: string
+  }
+
   interface Format {
     name: string
     hash: string

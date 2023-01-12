@@ -61,7 +61,7 @@ const navigate = () => {
 .carousel_item__image {
   background-image: v-bind(poster);
   background-size: cover;
-  border-radius: 24px;
+  border-radius: $border-radius-l;
   height: 240px;
   width: 180px;
   box-shadow: rgb(0 0 0 / 10%) 0px 20px 25px, rgb(0 0 0 / 4%) 0px 10px 10px;
