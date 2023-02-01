@@ -11,4 +11,3 @@ declare module '*.svg' {
 }
 
 declare module 'vue3-markdown-it'
-declare module 'vue-snap'

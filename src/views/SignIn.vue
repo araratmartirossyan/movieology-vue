@@ -5,7 +5,10 @@
     </template>
 
     <div class="singin-page__info">
-      <Carousel :slides="dynamicImages" />
+      <!-- <Carousel :slides="dynamicImages" /> -->
+      hello
+      {{ userData }}
+      hello2
       <div class="singin-page__actions">
         <button @click="loginWithGoogle" class="singin-page__info-link">
           <span> Войти через </span>
@@ -17,9 +20,11 @@
 </template>
 
 <script setup lang="ts">
+import qs from 'query-string'
 import GoogleSvg from '@/assets/icons/google.svg'
 import Carousel from '@/components/Carousel.vue'
-import { computed } from 'vue'
+import { computed, onMounted, ref } from 'vue'
+import { App, URLOpenListenerEvent } from '@capacitor/app'
 
 const loginWithGoogle = async () => {
   window.location.href = 'https://movie.incodewetrust.dev/connect/google'
@@ -52,6 +57,46 @@ const dynamicImages = computed(() =>
     image: new URL(`../assets/arts/${item.image}`, import.meta.url).href
   }))
 )
+
+const userData = ref<any>({})
+
+onMounted(async () => {
+  App.addListener('appUrlOpen', (event: URLOpenListenerEvent) => {
+    console.log('EVENT', event)
+    // this.zone.run(() => {
+    //   const domain = 'devdactic.com'
+
+    //   const pathArray = event.url.split(domain)
+    //   // The pathArray is now like ['https://devdactic.com', '/details/42']
+
+    //   // Get the last element with pop()
+    //   const appPath = pathArray.pop()
+    //   if (appPath) {
+    //     this.router.navigateByUrl(appPath)
+    //   }
+    // })
+  })
+  console.log('RENDERED 2')
+  // if (Capacitor.isNativePlatform()) {
+  //   await Browser.addListener('browserPageLoaded', () => {
+
+  //   })
+  // }
+
+  // Plugins.Browser.addListener('browserPageLoaded', (info: any) => {
+  //   userData.value = info
+  //   // info.url contains the current URL of the page
+  //   // Use this to access the browser's router and navigate to the appropriate route
+  // })
+  // const { jwt, userId, username } = qs.parse(location.search)
+  // localStorage.setItem('token', String(jwt))
+  // localStorage.setItem('userId', String(userId))
+  // userData.value = JSON.stringify({
+  //   jwt,
+  //   userId,
+  //   username
+  // })
+})
 </script>
 
 <style lang="scss">
