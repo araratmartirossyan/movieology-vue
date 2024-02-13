@@ -21,23 +21,15 @@ import { ElImage, ElButton } from 'element-plus'
 
 const ROOT_IMAGE = 'https://image.tmdb.org/t/p/w500'
 
-defineProps({
-  title: {
-    type: String,
-    default: ''
-  },
-  overview: {
-    type: String,
-    default: ''
-  },
-  posterPath: {
-    type: String,
-    default: ''
-  },
-  added: {
-    type: Boolean,
-    default: false
-  }
+interface Props {
+  title: string
+  overview: string
+  posterPath: string
+  added: boolean
+}
+
+withDefaults(defineProps<Props>(), {
+  added: false
 })
 </script>
 
@@ -68,7 +60,7 @@ defineProps({
     display: flex;
     justify-content: center;
     align-items: center;
-    border-radius: 4px;
+    border-radius: $border-radius-l;
   }
 }
 </style>

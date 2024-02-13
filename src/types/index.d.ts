@@ -35,6 +35,62 @@ declare namespace MOVIEOLOGY {
     movie: string
   }
 
+  interface StreamingMovies {
+    movies: Movie[]
+    title: string
+    _id: string
+    id: string
+  }
+
+  interface Format {
+    name: string
+    hash: string
+    ext: string
+    mime: string
+    width: number
+    height: number
+    size: number
+    path: string | null
+    url: string
+  }
+
+  interface Formats {
+    thumbnail: Format
+    large: Format
+    medium: Format
+    small: Format
+  }
+
+  interface Poster {
+    _id: string
+    name: string
+    alternativeText: string
+    caption: string
+    hash: stirng
+    ext: string
+    mime: string
+    size: number
+    width: number
+    height: number
+    url: string
+    formats: Formats
+    id: string
+  }
+
+  interface Like {
+    post: string
+    user: string
+  }
+
+  interface Post {
+    _id: string
+    description: string
+    title: string
+    createdAt: string
+    poster: Poster
+    likes: Like[]
+  }
+
   interface Movie {
     Genre: GenreEnum
     _id: string
@@ -123,7 +179,3 @@ declare namespace MOVIEOLOGY {
 type Nullable<T> = {
   [P in keyof T]: T[P] | null
 }
-
-type ComponentSize = any
-
-type SFCWithInstall = any

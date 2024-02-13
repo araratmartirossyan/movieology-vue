@@ -5,21 +5,14 @@
 </template>
 
 <script lang="ts" setup>
-import { defineProps } from '@vue/runtime-core'
+interface Props {
+  id?: string
+  title: string
+  active: boolean
+}
 
-defineProps({
-  id: {
-    type: String,
-    default: ''
-  },
-  title: {
-    type: String,
-    default: ''
-  },
-  active: {
-    type: Boolean,
-    default: false
-  }
+withDefaults(defineProps<Props>(), {
+  active: false
 })
 </script>
 

@@ -55,8 +55,9 @@ import { useRouter } from 'vue-router'
 import { useMovieStore } from '@/stores'
 
 const movieStore = useMovieStore()
-const loading = ref(false)
-const loaded = ref(false)
+
+const loading = ref<boolean>(false)
+const loaded = ref<boolean>(false)
 const { push } = useRouter()
 
 const animate = async () => {
@@ -69,10 +70,9 @@ const animate = async () => {
   }, 1300)
 
   setTimeout(() => {
-    const { currentMovie } = movieStore
     push({
       name: 'movie',
-      params: { id: currentMovie.id },
+      params: { id: movieStore.movieId },
       query: { type: 'suggested' }
     })
   }, 1400)
@@ -90,6 +90,8 @@ $success: #3fdc75;
   line-height: 20px;
   padding: 12px;
   border-radius: 4px;
+  width: 100%;
+  height: 60px;
   color: #fff;
   font-weight: 500;
   border: none;

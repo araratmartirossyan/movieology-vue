@@ -1,0 +1,13 @@
+{
+  "applinks": {
+    "apps": [],
+    "details": [
+      {
+        "appID": "KZT9PBQ9UX.com.movieology.app",
+        "paths": [
+          "*"
+        ]
+      }
+    ]
+  }
+}

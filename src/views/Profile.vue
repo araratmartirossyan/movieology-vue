@@ -10,9 +10,10 @@
       />
 
       <div class="profile-page__info_block">
-        <h2>
+        <h2 v-if="userStore.profile">
           {{ userStore.profile.username }}
         </h2>
+        <h2 v-else>Сикрет Юзер</h2>
       </div>
     </div>
     <mv-tabs>
@@ -62,14 +63,14 @@ import GsIcon from '@/components/Icons/GsIcon.vue'
 import MvTabs from '@/components/Tabs.vue'
 import MvTab from '@/components/Tab.vue'
 
-const activeTab = ref('favorite')
+const activeTab = ref('wish')
 const tabs = [
   { id: 'favorite', title: 'Любимые' },
   { id: 'wish', title: 'Хочу посмотреть' }
 ]
 
 const userStore = useUserStore()
-userStore.fetchFavs()
+userStore.fetchFavorites()
 userStore.getWishList()
 </script>
 
@@ -117,6 +118,7 @@ userStore.getWishList()
       background-color: #eee;
       display: inline-block;
       margin: 0 0 0.5em;
+      border-radius: $border-radius-l;
       width: 100%;
     }
   }

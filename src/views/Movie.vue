@@ -1,26 +1,27 @@
 <template>
   <page>
-    <template #append v-if="authStore.loggedIn">
-      <i class="el-icon-user user-icon" @click="push('/profile')" />
+    <template #prepend>
+      <gs-icon icon="arrow-left" size="32" @click="$router.back()" />
     </template>
+
     <div className="wrap">
-      <div className="cellphone-container" v-if="movieStore.currentMovie">
+      <div className="cellphone-container" v-if="movieStore.movie">
         <div className="movie">
           <div
             className="movie-img"
             :style="{
-              backgroundImage: `url(${movieStore.currentMovie.Poster})`,
+              backgroundImage: `url(${movieStore.movie.Poster})`,
               backgroundSize: 'cover'
             }"
           />
           <div className="text-movie-cont">
             <div className="mr-grid">
               <div className="col1">
-                <h2 className="title">{{ movieStore.currentMovie.Title }}</h2>
+                <h2 className="title">{{ movieStore.movie.Title }}</h2>
                 <ul className="movie-gen">
-                  <li>{{ movieStore.currentMovie.Rated }} /</li>
-                  <li>{{ movieStore.currentMovie.Runtime }} /</li>
-                  <li>{{ movieStore.currentMovie.Genre }}</li>
+                  <li>{{ movieStore.movie.Rated }} /</li>
+                  <li>{{ movieStore.movie.Runtime }} мин /</li>
+                  <li>{{ movieStore.movie.Genre }}</li>
                 </ul>
               </div>
             </div>
@@ -31,45 +32,50 @@
               <div className="col2">
                 <div className="movie-likes">
                   <!-- <Icon28FavoriteOutline width="{20}" height="{20}" /> -->
-                  <span>{{ movieStore.currentMovie.imdbRating }}</span>
+                  <span>⭐ {{ movieStore.movie.imdbRating }}</span>
                 </div>
               </div>
             </div>
             <div className="mr-grid">
               <div className="col1">
                 <p className="movie-description">
-                  {{ movieStore.currentMovie.Plot }}
+                  {{ movieStore.movie.Plot }}
                 </p>
               </div>
             </div>
             <div className="mr-grid actors-row">
               <div className="col1">
                 <p className="movie-actors">
-                  {{ movieStore.currentMovie?.Actors?.split('...')[0] }}
+                  {{ movieStore.movie?.Actors?.split('...')[0] }}
                 </p>
               </div>
             </div>
 
             <div class="actions-block" v-if="authStore.loggedIn">
-              <i
-                class="el-icon-star-off"
-                @click="movieStore.addToFavorite(movieStore.currentMovie.id)"
-                v-if="!movieStore.isFav"
-              />
-              <i
-                class="el-icon-star-on"
-                @click="
-                  movieStore.removeFromFavorite(movieStore.currentMovie.id)
-                "
-                v-else-if="movieStore.isFav"
-              />
-              <i class="el-icon-share" />
+              <el-icon
+                @click="favoriteStore.addToFavorite(movieStore.movieId)"
+                v-if="!favoriteStore.isFav"
+              >
+                <Star />
+              </el-icon>
+              <el-icon
+                @click="favoriteStore.removeFromFavorite(movieStore.movieId)"
+                v-else-if="favoriteStore.isFav"
+              >
+                <StarFilled />
+              </el-icon>
+              <el-icon>
+                <Share />
+              </el-icon>
             </div>
 
             <div className="back-btn">
               <el-button @click="back">Назад</el-button>
-              <el-button @click="fetchAgain" icon="el-icon-video-play">
-                Посоветовать еще
+              <el-button @click="fetchAgain">
+                <el-icon style="vertical-align: middle">
+                  <VideoPlay />
+                </el-icon>
+                <span> Посоветовать еще </span>
               </el-button>
             </div>
           </div>
@@ -81,32 +87,30 @@
 
 <script setup lang="ts">
 // Components
-import { ElButton } from 'element-plus'
+import { ElButton, ElIcon } from 'element-plus'
+import { VideoPlay, Star, StarFilled, Share } from '@element-plus/icons-vue'
 
 // Vue Hooks
 import { onMounted } from '@vue/runtime-core'
 import { useRouter, useRoute } from 'vue-router'
 
 // Stores
-import { useAuthStore, useMovieStore } from '@/stores'
+import { useAuthStore, useFavoriteStore, useMovieStore } from '@/stores'
 
 // Hooks
 import { usePreloader } from '@/hooks/usePreloader.hook'
 
 const movieStore = useMovieStore()
+const favoriteStore = useFavoriteStore()
 const authStore = useAuthStore()
 
-const { back, push } = useRouter()
+const { back } = useRouter()
 const {
-  params: { id },
-  query
+  params: { id }
 } = useRoute()
 
 onMounted(async () => {
-  console.log(query, 'type')
-  if (!query.type) {
-    await movieStore.fetchMovie(id as string)
-  }
+  await movieStore.fetchMovie(id as string)
 })
 
 const fetchAgain = async () => {
@@ -116,14 +120,6 @@ const fetchAgain = async () => {
 
 <style lang="scss" scoped>
 @import '@/assets/styles';
-.user-icon {
-  font-size: 26px;
-  border: 1px solid;
-  border-radius: 4px;
-  padding: 4px;
-  color: red;
-  font-weight: bold;
-}
 
 @import url(https://fonts.googleapis.com/css?family=Montserrat:400,700);
 @import url(https://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700,800,300italic,400italic,600italic,700italic,800italic);
@@ -266,6 +262,7 @@ h5 {
 .movie-likes {
   color: #fe4141;
   float: right;
+  font-size: 18px;
   display: flex;
   align-items: center;
 }
@@ -338,15 +335,7 @@ h5 {
 }
 
 .col1,
-.col2,
-.col3,
-.col3rest,
-.col4,
-.col4rest,
-.col5,
-.col5rest,
-.col6,
-.col6rest {
+.col2 {
   margin: 0% 0.5% 0.5% 0.5%;
   padding: 1%;
   float: left;
@@ -362,52 +351,6 @@ h5 {
   width: 47%;
 }
 
-.col3 {
-  width: 30.3333333333%;
-}
-
-.col4 {
-  width: 22%;
-}
-
-.col5 {
-  width: 17%;
-}
-
-.col6 {
-  width: 13.6666666667%;
-}
-
-/* Columns match with their individual number. E.G. col3+col3rest=full width row */
-.col3rest {
-  width: 63.6666666667%;
-}
-
-.col4rest {
-  width: 72%;
-}
-
-.col5rest {
-  width: 77%;
-}
-
-.col6rest {
-  width: 80.3333333333%;
-}
-
-.dribbble-link {
-  width: 50px;
-  height: 50px;
-  position: fixed;
-  bottom: 15px;
-  right: 15px;
-  border-radius: 8px;
-}
-
-.action-row {
-  margin-top: 10px;
-}
-
 .back-btn {
   color: #fe4141;
   margin-top: 10px;
@@ -421,6 +364,10 @@ h5 {
   &:hover,
   &:focus {
     color: #fe4141;
+  }
+
+  span {
+    margin-left: $spacing-s;
   }
 }
 </style>

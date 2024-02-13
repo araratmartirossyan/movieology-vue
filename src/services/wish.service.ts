@@ -6,7 +6,6 @@ export const pushToWishList = async (movie: MOVIEOLOGY.TMDBMovie) => {
       url: 'wish-lists',
       data: movie
     })
-    console.log(result)
     return result
   } catch (error) {
     throw error

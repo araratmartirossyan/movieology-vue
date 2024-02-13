@@ -1,94 +1,101 @@
 <template>
   <page class="home-page">
-    <template #append v-if="authStore.loggedIn"> </template>
+    <transition name="fade">
+      <Preloader v-if="loading" />
+    </transition>
     <div class="home-page__content">
-      <what-to-watch-button />
-    </div>
+      <h2 class="home-page__title">Рецензии</h2>
+      <NewsSlider />
+      <h2 class="home-page__title">Выбор редакции</h2>
+      <MovieSlider :movies="movieStore.movies" />
 
-    <template #bottom v-if="!authStore.loggedIn">
-      <div class="home-page__bottom">
-        <span class="pre_link">Войти через: </span>
-        <div class="home-page__bottom-icons">
-          <div @click="loginWithGoogle" class="link"><google-svg /></div>
-          <div class="link disabled"><facebook-svg /></div>
-        </div>
+      <div class="home-page__action">
+        <StreamingSlider @on-change="fetchStreamingMovies" />
+        <MovieSlider
+          v-if="movieStore.streamingMovies"
+          :movies="movieStore.streamingMovies"
+        />
       </div>
-    </template>
-    <template #bottom>
-      <div class="home-page__bottom">
-        <div class="home-page__bottom-icons">
-          <i class="el-icon-user user-icon" @click="$router.push('/profile')" />
-        </div>
+
+      <div class="home-page__search">
+        <what-to-watch-button />
       </div>
-    </template>
+    </div>
   </page>
 </template>
 
 <script lang="ts" setup>
 // Components
-import GoogleSvg from '@/assets/icons/google.svg'
-import FacebookSvg from '@/assets/icons/facebook.svg'
+import Preloader from '@/components/Preloader.vue'
+import MovieSlider from '@/components/MovieSlider.vue'
+import NewsSlider from '@/components/NewsSlider.vue'
+import StreamingSlider from '@/components/StreamingSlider.vue'
 
-import { useAuthStore } from '@/stores'
+// Stores
+import { useMovieStore, useNewsStore } from '@/stores'
+import { onMounted, ref, computed } from 'vue'
 
-const authStore = useAuthStore()
+const movieStore = useMovieStore()
+const newsStore = useNewsStore()
 
-const loginWithGoogle = async () => {
-  window.location.href = 'https://movie.incodewetrust.dev/connect/google'
+movieStore.fetchMovies()
+newsStore.fetchPosts()
+
+const fetchStreamingMovies = async (id: string) => {
+  await movieStore.fetchStreamingMovies(id)
 }
+fetchStreamingMovies('netflix')
+
+const loaded = computed(
+  () => movieStore.streamingMovies.length && movieStore.movies.length
+)
+
+const loading = ref<boolean>(false)
+
+onMounted(() => {
+  if (!loaded.value) {
+    loading.value = true
+    setTimeout(() => {
+      loading.value = false
+    }, 1500)
+  }
+})
 </script>
 
 <style lang="scss">
 @import '@/assets/styles';
 
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.5s;
+}
+.fade-enter,
+.fade-leave-to {
+  opacity: 0;
+}
+
 .home-page {
-  .user-icon {
-    font-size: 26px;
-    border-radius: 4px;
-    padding: 4px;
-    color: white;
-    background: $color-primary;
+  &__top {
+    display: flex;
   }
+
+  &__title {
+    color: white;
+    text-align: left;
+    margin-left: $spacing-m;
+  }
+
+  &__action {
+    margin-top: $spacing-l;
+  }
+
+  &__search {
+    padding: $spacing-m;
+  }
+
   &__content {
     display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100%;
-  }
-  &__bottom {
-    display: flex;
-    justify-content: center;
     flex-direction: column;
-    margin-bottom: 20px;
-    align-items: center;
-    padding: 0 20px;
-    .pre_link {
-      margin-bottom: 10px;
-      color: $color-white;
-    }
-
-    &-icons {
-      display: flex;
-
-      .link {
-        text-align: center;
-        padding: 10px;
-        display: flex;
-        width: 87px;
-        height: 40px;
-        margin-right: 10px;
-        justify-content: center;
-        text-transform: uppercase;
-        border-radius: 4px;
-        color: $color-white;
-        text-decoration: none;
-        background: $color-white;
-      }
-
-      .disabled {
-        background: gray;
-      }
-    }
   }
 }
 </style>

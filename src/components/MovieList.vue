@@ -17,14 +17,14 @@
 </template>
 
 <script lang="ts" setup>
-import { defineProps } from 'vue-demi'
-
-defineProps({
-  isEmpty: {
-    type: Boolean,
-    default: false
+withDefaults(
+  defineProps<{
+    isEmpty: boolean
+  }>(),
+  {
+    isEmpty: false
   }
-})
+)
 </script>
 
 <style lang="scss">
@@ -36,7 +36,7 @@ defineProps({
   &__nothing-found {
     width: 100%;
     background-color: $color-white;
-    border-radius: $spacing-s;
+    border-radius: $border-radius-l;
     box-shadow: #000 0px 2px 4px;
     display: flex;
     flex-direction: column;
@@ -50,7 +50,7 @@ defineProps({
 
     img {
       width: 100%;
-      border-radius: $spacing-s;
+      border-radius: $border-radius-l;
     }
   }
 }
